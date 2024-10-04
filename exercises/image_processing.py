@@ -59,16 +59,18 @@ if __name__ == "__main__":
 
     def interpolate_and_write(i, j, queue):
         value = get_interpolated_value(i, j)
-        # queue.put((i, j, value))
-        return value
+        queue.put((i, j, value))
+        # return value
 
     def interpolate_over_indices(irange, jrange, queue):
-        out_map = np.zeros((len(irange), len(jrange), 3), dtype=np.uint8)
+        # out_map = np.zeros((len(irange), len(jrange), 3), dtype=np.uint8)
         for i, j in product(irange, jrange):
-            out_map[i - irange[0], j - jrange[0]] = interpolate_and_write(i, j, queue)
-        queue.put((slice(irange[0], irange[-1] + 1),
-                  slice(jrange[0], jrange[-1] + 1),
-                  out_map))
+            interpolate_and_write(i, j, queue)
+            # out_map[i - irange[0], j - jrange[0]] = interpolate_and_write(i, j, queue)
+
+        # queue.put((slice(irange[0], irange[-1] + 1),
+        #          slice(jrange[0], jrange[-1] + 1),
+        #          out_map))
 
     def queue_writer(queue):
         while True:
