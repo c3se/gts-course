@@ -12,7 +12,7 @@ Open a terminal by clicking the black square in the lower middle tray on the des
 
 While on a compute node, you can safely run demanding jobs. The interactive environment is especially suitable to testing out your job configuration and ensuring it works correctly; in some cases, it can be sufficient to carry out all of the work you need to do on the HPC system.
 
-It is also possible to launch interactive jobs (via the srun command)[https://www.c3se.chalmers.se/documentation/running_jobs/#running-interactive-jobs]. However, this is generally not recommended, as this session will depend entirely on your connection to the login node; the web portal is more robust in this regard.
+It is also possible to launch interactive jobs [via the srun command](https://www.c3se.chalmers.se/documentation/running_jobs/#running-interactive-jobs). However, this is generally not recommended, as this session will depend entirely on your connection to the login node; the web portal is more robust in this regard.
 
 ### Batch jobs
 
