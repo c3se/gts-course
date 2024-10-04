@@ -116,3 +116,41 @@ $ cat test_log_%a.txt
 8 :  [0, 1, 4, 9, 16, 25, 36, 49]
 9 :  [0, 1, 4, 9, 16, 25, 36, 49, 64]
 ```
+
+### Running jobs using GPU resources
+
+In order to use GPU resources, we need to do two things: First, make sure we load a library that can use the GPU. Second, we need to request a node with a GPU. For this demonstration, we will use `CuPy`, a drop-in replacement for `numpy` that works with Nvidia GPU:s, and we will request an `A40` GPU using `gpus-per-node=A40:1`.
+
+
+```bash
+#!/bin/bash
+#SBATCH -A PROJECT_NAME -p vera
+#SBATCH -t 00:00:10
+#SBATCH --gpus-per-node=A40:1
+#SBATCH -o test_log_gpu.txt
+
+module load Python/3.10.8 CuPy/12.1.0-foss-2022b-CUDA-12.0.0
+
+python -c "import cupy as cp; array = cp.arange(1000); print(array.sum().get())"
+```
+
+Once the job is finished, you can check the output:
+
+```bash
+$ cat test_log_gpu.txt
+499500
+```
+
+If your job does not execute immediately, check which GPU types are avaiable (`IDLE`) under `Total GPU usage`:
+
+```bash
+$ jobinfo
+...
+Total GPU usage:
+TYPE    ALLOCATED IDLE OFFLINE TOTAL
+A100            2   10       0    12
+A40             4   12       0    16
+T4              4    0       0     4
+V100            0    8       0     8
+...
+```
