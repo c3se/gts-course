@@ -1,12 +1,9 @@
+""" This code finds the largest eigenvalue in a matrix. """
+
+# DO NOT MODIFY
 import numpy as np
 from math import sqrt
 from time import time
-
-randgen = np.random.default_rng(seed=135893)
-
-A = randgen.normal(2, 5, (2000, 2000)).clip(0, None)
-b = randgen.normal(0, 1, (2000, 1))
-
 """These three functions constitute the computational load of this
    script. Which function requires the most time to carry out?
    How can we measure that? How can we optimize it?
@@ -38,6 +35,12 @@ def matrix_vector_multiplication(M, v):
     return x
 
 
+""" READ BUT DO NOT MODFY THE CODE PAST THIS LINE, MODIFY INSIDE THE FUNCTIONS """
+
+randgen = np.random.default_rng(seed=135893)
+A = randgen.normal(2, 5, (2000, 2000)).clip(0, None)
+b = randgen.normal(0, 1, (2000, 1))
+
 norm = get_vector_norm(b)
 b = divide_vector_by_scalar(b, norm)
 old_norm = 0
@@ -59,5 +62,10 @@ for i in range(20):
     b = divide_vector_by_scalar(b, norm)
 convergence_time = time() - start_time
 print(f'Time to convergence: {convergence_time:.2f} seconds.')
+
 if convergence_time > 0.5:
-    raise ValueError('It should take less than half a second to run this optimization!')
+    raise ValueError('It should take less than half a'
+                     f'second to run this optimization, but it took {convergence_time:2f}!')
+
+if not np.isclose(norm, 6290.72419):
+    raise ValueError(f'The computed eigenvalue is not correct! {norm:.5f} is not close to 6290.72419')
