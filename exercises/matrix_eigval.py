@@ -35,10 +35,13 @@ def matrix_vector_multiplication(M, v):
     return x
 
 
-""" READ BUT DO NOT MODFY THE CODE PAST THIS LINE, MODIFY INSIDE THE FUNCTIONS """
 
-randgen = np.random.default_rng(seed=135893)
+""" The code may run too slowly to profile with N = 20000. Try setting N to a smaller
+value first, and then change back to `20000` once you have optimized the code."""
 N = 20000
+
+""" READ BUT DO NOT MODFY THE CODE PAST THIS LINE, MODIFY INSIDE THE FUNCTIONS """
+randgen = np.random.default_rng(seed=135893)
 A = randgen.normal(2, 5, (N, N)).clip(0, None)
 b = randgen.normal(0, 1, (N, 1))
 

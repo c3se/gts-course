@@ -2,17 +2,12 @@
 
 # DO NOT MODIFY
 import cupy as cp
-import  numpy as np
-from math import sqrt
+import numpy as np
 from time import time
-"""These three functions constitute the computational load of this
-   script. Which function requires the most time to carry out?
-   How can we measure that? How can we optimize it?
-   When you are done, the loop should run in
-   less then one second."""
 
-
-""" READ BUT DO NOT MODFY THE CODE PAST THIS LINE, MODIFY INSIDE THE FUNCTIONS """
+""" This version of the code uses `cupy` to carry out some of the computation,
+which should be fast.
+Can you identify the bottleneck causing slowdown in this code?"""
 
 randgen = np.random.default_rng(seed=135893)
 
@@ -33,7 +28,8 @@ for i in range(50):
         break
     old_norm = norm
 
-
+    """ The computation in this code is carried out over these three lines.
+    What is the problem with the way `cupy` is used here?"""
     b = (cp.array(A) @ cp.array(b)).get()
     norm = np.linalg.norm(b)
     b = b / norm
