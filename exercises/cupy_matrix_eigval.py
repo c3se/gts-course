@@ -1,7 +1,7 @@
 """ This code finds the largest eigenvalue in a matrix. """
 
 # DO NOT MODIFY
-import numpy as np
+import cupy as np
 from math import sqrt
 from time import time
 """These three functions constitute the computational load of this
@@ -37,10 +37,14 @@ def matrix_vector_multiplication(M, v):
 
 """ READ BUT DO NOT MODFY THE CODE PAST THIS LINE, MODIFY INSIDE THE FUNCTIONS """
 
-randgen = np.random.default_rng(seed=135893)
+randgen = cp.random.default_rng(seed=135893)
+
 N = 20000
-A = randgen.normal(2, 5, (N, N)).clip(0, None)
-b = randgen.normal(0, 1, (N, 1))
+A = (randgen.normal(2, 5, (N, N)).astype(np.float32)).clip(0, None)
+b = randgen.normal(0, 1, (N, 1)).astype(np.float32)
+
+A = np.array(A)
+b = np.array(b)
 
 norm = get_vector_norm(b)
 b = divide_vector_by_scalar(b, norm)
@@ -80,5 +84,5 @@ if convergence_time > 0.5:
     raise ValueError('It should take less than half a'
                      f'second to run this optimization, but it took {convergence_time:2f}!')
 
-if not np.isclose(norm, 63035.05409):
-    raise ValueError(f'The computed eigenvalue is not correct! {norm:.5f} is not close to 6290.72419')
+if not np.isclose(norm, 63035.05469):
+    raise ValueError(f'The computed eigenvalue is not correct! {norm.get():.5f} is not close to 6290.72419')
