@@ -1,0 +1,443 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   id="svg1290"
+   width="183.1844mm"
+   height="96.163895mm"
+   viewBox="0 0 183.1844 96.163894"
+   version="1.1">
+  <defs
+     id="defs184">
+    <marker
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="marker3355"
+       style="overflow:visible">
+      <path
+         id="path3353"
+         d="M 0,0 5,-5 -12.5,0 5,5 Z"
+         style="fill:#7d7d7d;fill-opacity:1;fill-rule:evenodd;stroke:#7d7d7d;stroke-width:1.00000003pt;stroke-opacity:1"
+         transform="matrix(-0.8,0,0,-0.8,-10,0)" />
+    </marker>
+    <marker
+       style="overflow:visible"
+       id="Arrow1Lend"
+       refX="0"
+       refY="0"
+       orient="auto">
+      <path
+         transform="matrix(-0.8,0,0,-0.8,-10,0)"
+         style="fill:#7d7d7d;fill-opacity:1;fill-rule:evenodd;stroke:#7d7d7d;stroke-width:1.00000003pt;stroke-opacity:1"
+         d="M 0,0 5,-5 -12.5,0 5,5 Z"
+         id="path2074" />
+    </marker>
+    <marker
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="marker2464"
+       style="overflow:visible">
+      <path
+         id="path2462"
+         d="M 0,0 5,-5 -12.5,0 5,5 Z"
+         style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1.00000003pt;stroke-opacity:1"
+         transform="matrix(0.8,0,0,0.8,10,0)" />
+    </marker>
+    <marker
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="marker2424"
+       style="overflow:visible">
+      <path
+         id="path2422"
+         d="M 0,0 5,-5 -12.5,0 5,5 Z"
+         style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1.00000003pt;stroke-opacity:1"
+         transform="matrix(0.8,0,0,0.8,10,0)" />
+    </marker>
+    <marker
+       style="overflow:visible"
+       id="Arrow1Lstart"
+       refX="0"
+       refY="0"
+       orient="auto">
+      <path
+         transform="matrix(0.8,0,0,0.8,10,0)"
+         style="fill:#7d7d7d;fill-opacity:1;fill-rule:evenodd;stroke:#7d7d7d;stroke-width:1.00000003pt;stroke-opacity:1"
+         d="M 0,0 5,-5 -12.5,0 5,5 Z"
+         id="path2071" />
+    </marker>
+    <marker
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="Arrow"
+       style="overflow:visible">
+      <path
+         id="path994"
+         d="M 0,0 5,-5 -12.5,0 5,5 Z"
+         style="fill:#7d7d7d;fill-opacity:1;fill-rule:evenodd;stroke:#7d7d7d;stroke-width:1.00000003pt;stroke-opacity:1"
+         transform="matrix(-0.8,0,0,-0.8,-10,0)" />
+    </marker>
+  </defs>
+  <metadata
+     id="metadata1112">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <path
+     id="path1114"
+     d="m 36.847055,60.713467 c 0,0 0.0016,25.20993 0.0016,27.71928 -4e-6,2.50935 -8.136927,4.54358 -18.174328,4.54358 -10.037401,0 -18.174323,-2.03423 -18.174327,-4.54358 4e-6,-2.50935 0.0023,-27.71793 0.0023,-27.71793"
+     style="fill:#6f80fb;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:round;paint-order:stroke fill markers;fill-opacity:1" />
+  <ellipse
+     id="ellipse1116"
+     ry="4.543582"
+     rx="18.174328"
+     cy="60.770348"
+     cx="18.674328"
+     style="fill:#c6cdff;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:round;paint-order:stroke fill markers" />
+  <rect
+     id="rect1118"
+     ry="2.0000012"
+     rx="2.0000012"
+     y="48.125069"
+     x="43.198853"
+     height="18.792479"
+     width="29.671131"
+     style="fill:#84ff8a;fill-opacity:1;stroke:#000000;stroke-width:1;paint-order:stroke fill markers" />
+  <rect
+     id="rect1120"
+     ry="2.0000012"
+     rx="2.0000012"
+     y="48.125069"
+     x="85.106956"
+     height="18.792479"
+     width="29.671135"
+     style="fill:#84ff8a;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:round;paint-order:stroke fill markers" />
+  <rect
+     id="rect1122"
+     ry="2.0000012"
+     rx="2.0000012"
+     y="48.125069"
+     x="127.01508"
+     height="18.792479"
+     width="29.671127"
+     style="fill:#c9ffcc;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:round;paint-order:stroke fill markers" />
+  <text
+     id="text1126"
+     y="33.308403"
+     x="158.58994"
+     xml:space="preserve"><tspan
+       id="tspan1124"
+       style="font-size:4.93888903px;font-family:sans-serif">Ethernet</tspan></text>
+  <text
+     id="text1130"
+     y="47.043144"
+     x="158.58994"
+     xml:space="preserve"><tspan
+       id="tspan1128"
+       style="font-size:4.93888903px;font-family:sans-serif">InfiniBand</tspan></text>
+  <text
+     id="text1136"
+     y="72.329948"
+     x="18.671227"
+     xml:space="preserve"><tspan
+       id="tspan1132"
+       style="font-size:6.3499999px;line-height:5.29166651px;font-family:sans-serif;text-align:center;text-anchor:middle;stroke-width:0.26458332px"
+       y="72.329948"
+       x="18.671227">Centre</tspan><tspan
+       id="tspan1134"
+       style="font-size:6.3499999px;line-height:5.29166651px;font-family:sans-serif;text-align:center;text-anchor:middle;stroke-width:0.26458332px"
+       y="78.944527"
+       x="18.671227">storage</tspan></text>
+  <path
+     id="path1138"
+     d="M 48.679508,41.510487 H 21.881582 v 19.05857 M 131.72936,41.526947 v 6.40982 m -41.025873,-6.40982 v 6.41111 m 92.438273,-6.42757 H 48.679508 v 6.54775"
+     style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter" />
+  <text
+     id="text1142"
+     y="14.10721"
+     x="11.448854"
+     xml:space="preserve"><tspan
+       id="tspan1140"
+       style="stroke-width:0.26458332px"
+       y="19.533236"
+       x="11.448854" /></text>
+  <text
+     id="text1146"
+     y="62.541206"
+     x="57.714027"
+     xml:space="preserve"
+     style="text-align:center;text-anchor:middle"><tspan
+       id="tspan1144"
+       style="font-size:3.52777767px;font-family:sans-serif;text-align:center;text-anchor:middle;stroke-width:0.26458332px">vera01-1</tspan></text>
+  <text
+     id="text1150"
+     y="62.541206"
+     x="99.622162"
+     xml:space="preserve"
+     style="text-align:center;text-anchor:middle"><tspan
+       id="tspan1148"
+       style="font-size:3.52777767px;font-family:sans-serif;text-align:center;text-anchor:middle;stroke-width:0.26458332px">vera01-2</tspan></text>
+  <text
+     id="text1154"
+     xml:space="default"
+     y="62.541206"
+     x="141.53024"
+     style="text-align:center;text-anchor:middle">
+    <tspan
+       id="tspan1152"
+       style="font-size:3.52777767px;font-family:sans-serif;text-align:center;text-anchor:middle;stroke-width:0.26458332px">vera01-3</tspan>
+  </text>
+  <g
+     id="g1156"
+     transform="translate(-17.807941,-61.702645)"
+     aria-label="Login node" />
+  <text
+     id="text1160"
+     y="55.386833"
+     x="57.411201"
+     xml:space="preserve"
+     style="text-align:center;text-anchor:middle"><tspan
+       id="tspan1158"
+       style="font-size:6.3499999px;line-height:5.29166651px;font-family:sans-serif;text-align:center;text-anchor:middle;stroke-width:0.26458332px">Node</tspan></text>
+  <text
+     id="text1164"
+     x="99.848465"
+     y="55.386833"
+     xml:space="preserve"
+     style="text-align:center;text-anchor:middle"><tspan
+       id="tspan1162"
+       style="font-size:6.3499999px;line-height:5.29166651px;font-family:sans-serif;text-align:center;text-anchor:middle;stroke-width:0.26458332px">Node</tspan></text>
+  <text
+     id="text1168"
+     y="55.386833"
+     x="141.22742"
+     xml:space="preserve"
+     style="text-align:center;text-anchor:middle"><tspan
+       id="tspan1166"
+       style="font-size:6.3499999px;line-height:5.29166651px;font-family:sans-serif;text-align:center;text-anchor:middle;stroke-width:0.26458332px">Node</tspan></text>
+  <path
+     id="path1170"
+     d="m 67.120582,76.275637 c 0,0 0.001,12.60496 0.001,13.85964 -5e-6,1.25468 -4.068464,2.27179 -9.087165,2.27179 -5.0187,0 -9.087161,-1.01711 -9.087163,-2.27179 2e-6,-1.25468 0.0011,-13.85897 0.0011,-13.85897"
+     style="fill:#fd7878;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:round;paint-order:stroke fill markers" />
+  <ellipse
+     id="ellipse1172"
+     ry="2.271791"
+     rx="9.0871639"
+     cy="76.302773"
+     cx="58.03442"
+     style="fill:#ffdddd;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:round;paint-order:stroke fill markers" />
+  <text
+     id="text1176"
+     y="87.020515"
+     x="25.024334"
+     xml:space="preserve"
+     style="text-align:center;text-anchor:middle"><tspan
+       id="tspan1174"
+       style="font-size:3.52777767px;font-family:sans-serif;text-align:center;text-anchor:middle;stroke-width:0.26458332px"
+       y="87.020515"
+       x="18.23921">/cephyr/...</tspan></text>
+  <text
+     id="text1180"
+     y="82.726906"
+     x="57.868191"
+     xml:space="preserve"><tspan
+       id="tspan1178"
+       style="font-size:3.52777767px;line-height:0px;font-family:sans-serif;text-align:center;text-anchor:middle;stroke-width:0.26458332px"
+       y="82.726906"
+       x="57.868191">Disk</tspan></text>
+  <text
+     id="text1184"
+     y="88.289604"
+     x="65.679085"
+     xml:space="preserve"
+     style="text-align:center;text-anchor:middle"><tspan
+       id="tspan1182"
+       style="font-size:3.52777767px;font-family:sans-serif;text-align:center;text-anchor:middle;stroke-width:0.26458332px"
+       y="88.289604"
+       x="57.98447">$TMPDIR</tspan></text>
+  <path
+     id="path1188"
+     style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:0.40000001;stroke-linecap:butt;stroke-linejoin:miter"
+     d="m 142.86773,34.640497 v 5.05991 c 0,0 -2.05701,0.0646 -2.03399,1.87089 0.023,1.80627 2.03399,1.77734 2.03399,1.77734 v 4.44335 m -41.90812,-13.12441 v 5.05991 c 0,0 -2.057013,0.0646 -2.033993,1.87089 0.023,1.80627 2.033993,1.77734 2.033993,1.77734 v 4.44335 m -41.908109,-13.2296 v 5.05991 c 0,0 -2.057009,0.0646 -2.033984,1.87089 0.02303,1.80627 2.033984,1.77734 2.033984,1.77734 v 4.44335 M 92.440737,34.577937 H 183.1844 M 92.440737,20.145388 V 34.577937 H 15.199845 v 25.99076 m 8.958459,-26.09802 V 17.650738" />
+  <rect
+     id="rect1190"
+     ry="1.0000006"
+     rx="1.0000006"
+     y="0.50006247"
+     x="69.468193"
+     height="19.276787"
+     width="47.058033"
+     style="fill:#fffddd;fill-opacity:1;stroke:#000000;stroke-width:1.00012493;stroke-linecap:butt;stroke-linejoin:round;stroke-dasharray:none;paint-order:stroke fill markers" />
+  <text
+     id="text1194"
+     y="8.0595951"
+     x="111.42398"
+     xml:space="preserve"
+     style="text-align:center;text-anchor:middle"><tspan
+       id="tspan1192"
+       style="font-size:6.3499999px;line-height:5.29166651px;font-family:sans-serif;text-align:center;text-anchor:middle;stroke-width:0.26458332px"
+       y="8.0595951"
+       x="94.404892">Login node</tspan></text>
+  <text
+     id="text1198"
+     y="15.808107"
+     x="114.37263"
+     xml:space="preserve"
+     style="text-align:center;text-anchor:middle"><tspan
+       id="tspan1196"
+       style="font-size:3.52777767px;font-family:sans-serif;text-align:center;text-anchor:middle;stroke-width:0.26458332px"
+       y="15.808107"
+       x="93.194809">veraX.c3se.chalmers.se</tspan></text>
+  <rect
+     id="rect1200"
+     ry="2.0000012"
+     rx="2.0000012"
+     y="1.5200286"
+     x="2.5664136"
+     height="17.311872"
+     width="46.17416"
+     style="fill:#fffddd;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:round;paint-order:stroke fill markers" />
+  <text
+     id="text1204"
+     y="9.16292"
+     x="44.11034"
+     xml:space="preserve"
+     style="text-align:center;text-anchor:middle"><tspan
+       id="tspan1202"
+       style="font-size:6.3499999px;line-height:5.29166651px;font-family:sans-serif;text-align:center;text-anchor:middle;stroke-width:0.26458332px"
+       y="9.16292"
+       x="25.134758">Server node</tspan></text>
+  <text
+     id="text1208"
+     y="15.580622"
+     x="33.887623"
+     xml:space="preserve"
+     style="text-align:center;text-anchor:middle"><tspan
+       id="tspan1206"
+       style="font-size:3.52777767px;font-family:sans-serif;text-align:center;text-anchor:middle;stroke-width:0.26458332px"
+       y="15.580622"
+       x="25.168949">Scheduler</tspan></text>
+  <path
+     id="path1210"
+     d="M 95.532532,46.830498 V 37.937002 H 18.175436 l 0,16.770149"
+     style="fill:none;fill-rule:evenodd;stroke:#7d7d7d;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;marker-start:url(#Arrow1Lstart);marker-end:url(#marker3355)" />
+  <text
+     id="text1214"
+     xml:space="default"
+     y="45.706711"
+     x="26.3664">
+    <tspan
+       id="tspan1212"
+       style="font-size:3.52777767px;font-family:sans-serif;fill:#7d7d7d;stroke-width:0.26458332px"></tspan>
+  </text>
+  <text
+     id="text3306"
+     xml:space="default"
+     y="46.390846"
+     x="25.433487">
+    <tspan
+       id="tspan3308"
+       style="font-size:3.52777767px;font-family:sans-serif;fill:#7d7d7d;stroke-width:0.26458332px">copy data</tspan>
+  </text>
+  <path
+     id="path1216"
+     d="m 58.034418,67.099447 v 8.98026"
+     style="fill:none;stroke:#000000;stroke-width:0.26458332px" />
+  <path
+     id="path1218"
+     d="m 109.02869,76.275637 c 0,0 0.001,12.60496 0.001,13.85964 -1e-5,1.25468 -4.06847,2.27179 -9.087173,2.27179 -5.0187,0 -9.08716,-1.01711 -9.08716,-2.27179 0,-1.25468 0.001,-13.85897 0.001,-13.85897"
+     style="fill:#fd7878;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:round;paint-order:stroke fill markers" />
+  <ellipse
+     id="ellipse1220"
+     ry="2.271791"
+     rx="9.0871639"
+     cy="76.302773"
+     cx="99.94252"
+     style="fill:#ffdddd;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:round;paint-order:stroke fill markers" />
+  <text
+     id="text1224"
+     y="82.726906"
+     x="99.776306"
+     xml:space="preserve"><tspan
+       id="tspan1222"
+       style="font-size:3.52777767px;line-height:0px;font-family:sans-serif;text-align:center;text-anchor:middle;stroke-width:0.26458332px"
+       y="82.726906"
+       x="99.776306">Disk</tspan></text>
+  <text
+     id="text1228"
+     y="88.289604"
+     x="107.5872"
+     xml:space="preserve"
+     style="text-align:center;text-anchor:middle"><tspan
+       id="tspan1226"
+       style="font-size:3.52777767px;font-family:sans-serif;text-align:center;text-anchor:middle;stroke-width:0.26458332px"
+       y="88.289604"
+       x="99.892586">$TMPDIR</tspan></text>
+  <path
+     id="path1230"
+     d="m 99.942527,67.099447 v 8.98026"
+     style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter" />
+  <path
+     id="path1232"
+     d="m 150.93681,76.275637 c 0,0 0.001,12.60496 0.001,13.85964 -1e-5,1.25468 -4.06847,2.27179 -9.08717,2.27179 -5.0187,0 -9.08716,-1.01711 -9.08716,-2.27179 0,-1.25468 0.001,-13.85897 0.001,-13.85897"
+     style="fill:#febcbc;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:round;paint-order:stroke fill markers" />
+  <ellipse
+     id="ellipse1234"
+     ry="2.271791"
+     rx="9.0871639"
+     cy="76.302773"
+     cx="141.85065"
+     style="fill:#ffdddd;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:round;paint-order:stroke fill markers" />
+  <text
+     id="text1238"
+     y="82.726906"
+     x="141.68442"
+     xml:space="preserve"><tspan
+       id="tspan1236"
+       style="font-size:3.52777767px;line-height:0px;font-family:sans-serif;text-align:center;text-anchor:middle;stroke-width:0.26458332px"
+       y="82.726906"
+       x="141.68442">Disk</tspan></text>
+  <text
+     id="text1242"
+     y="88.289604"
+     x="149.49521"
+     xml:space="preserve"
+     style="text-align:center;text-anchor:middle"><tspan
+       id="tspan1240"
+       style="font-size:3.52777767px;font-family:sans-serif;text-align:center;text-anchor:middle;stroke-width:0.26458332px"
+       y="88.289604"
+       x="141.80058">$TMPDIR</tspan></text>
+  <path
+     id="path1244"
+     d="m 141.85065,67.099447 v 8.98026"
+     style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter" />
+  <path
+     id="path2069"
+     d="m 53.860192,37.999089 v 9.049258"
+     style="fill:none;fill-rule:evenodd;stroke:#7d7d7d;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-end:url(#Arrow1Lend)" />
+  <path
+     id="path1170-3"
+     d="m 112.47066,74.079192 c 0,0 0.001,16.562975 0.001,17.817656 -2e-5,3.101759 -16.206383,3.767044 -33.450955,3.767044 -13.374511,0 -33.099121,-0.665287 -33.099126,-3.767044 2e-6,-1.254681 0.0011,-17.816986 0.0011,-17.816986"
+     style="fill:none;fill-opacity:0.51785715;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:1.99999997, 0.99999999;stroke-dashoffset:0;stroke-opacity:0.53571424;paint-order:stroke fill markers" />
+  <ellipse
+     cx="79.020706"
+     cy="73.718826"
+     rx="33.49329"
+     ry="2.2095966"
+     id="ellipse1172-6"
+     style="fill:none;fill-opacity:0.51785715;stroke:#000000;stroke-width:1.00012493;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:2.0002499, 1.00012495;stroke-dashoffset:0;stroke-opacity:0.53571424;paint-order:stroke fill markers" />
+</svg>
