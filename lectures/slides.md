@@ -145,6 +145,67 @@ fontsize: 10pt
   * Also allows graphical desktop on either compute node (via queue) or login node like Thinlinc
 
 
+# Parallel computations
+
+* Moving a program to a HPC environment doesn't magically make it faster.
+* Programs need to consider how to parallelize things manually.
+
+## Embarrasingly parallel jobs
+* The simplest parallelization is to simple run different the same analysis on different inputs
+* Submitted with `sbatch --array=0-99 bunch_of_scripts.sh`
+
+```bash
+#!/bin/bash
+#SBATCH -A C3SE2021-2-3
+#SBATCH -n 1
+#SBATCH -t 1:00:00
+#SBATCH --mail-user=zapp.brannigan@chalmers.se --mail-type=end
+
+module load SciPy-bundle
+
+process_data.py input_data_$SLURM_ARRAY_TASK_ID.npz results_$SLURM_ARRAY_TASK_ID.txt
+```
+
+* Need to produce a plot or table with all the combiend results? Split that into seperate postprocessing.
+* Need millions of analysis? Do them in batches or look into High-Throughput-Computing software like `hyperqueue`
+
+## Vector instructions
+
+* Modern CPUs have vector instruction sets, allowing them to do multiple 
+* AVX512 (2015) > AVX2 (2008) > AVX (2011) > SSE (1999-2006) > Generic instructions (<1996).
+* Has strict requirements on memory layout.
+* Most of the time one relies on optimized libraries doing the heavy lifting.
+* All of Vera's CPUs support AVX512.
+
+## Shared memory
+
+* Many programming languages can dynamically launch multiple threads to speed up computations
+* Multiple threads of computation running and sharing memory
+  * You have to program in that no two threads should read and write to the same memory at the same time (race condition)
+  * Typical example of parallelizing a for loop with OpenMP
+
+```c++
+todo
+```
+
+* Using optimized libraries can hide away this complexity and use multiple threads under the hood.
+
+## Shared memory in python
+* Python can't do actual multithreading
+  * `multiprocessing` actually starts multiple interpreters and passes messages between. They can't see the same memory.
+  * Python 3.13 allows for free threading, though still experimental and support is nonexistent.
+  * Libraries (`numpy` etc.) may have C/C++/Rust code that can use multiple threads
+
+## Distributed memory
+
+* Multiple individual processes all not sharing memory access.
+* Messages must be explicitly passed between processes to synchronize information: Message Passing Interface (MPI) is the standard.
+* Optional within a single node. Required when scaling to multiple nodes.
+
+```python
+todo
+```
+
 ------------------------------------------------------------------
 
 # INTRO SLIDES BELOW TO BE PROCESSED
@@ -624,56 +685,3 @@ you are *eventually* presented with a shell on the node:
 * Think about what you do - if you by mistake copy very large files back and forth you can slow the storage servers or network to a crawl
 
 
-# Getting support
-* We ask all students to pass [Introduction to computer clusters](https://chalmers.instructure.com/courses/21205) but all users who whishes can attend this online self learning course.
-* Students should first speak to their supervisor for support
-* We provide support to our users, but not for any and all problems
-* We can help you with software installation issues, and recommend compiler flags etc. for optimal performance
-* We can install software system-wide if there are many users who need it - but not for one user (unless the installation is simple)
-* We don't support your application software or help debugging your code/model or prepare your input files
-
-
-# Getting support
-* Staff are available in our offices, to help with those things that are hard to put into a support request email (book a time in advance please)
-* Origo building - Fysikgården 4, one floor up, ring the bell
-* We also offer advanced support for things like performance optimisation, advanced help with software development tools or debuggers, workflow automation through scripting, etc.
-
-
-# Getting support - support requests
-* If you run into trouble, first figure out what seems to go wrong. Use the following as a checklist:
-  * **make sure you simply aren't over disk quota with `C3SE_quota`**
-  * something wrong with your job script or input file?
-  * does your simulation diverge?
-  * is there a bug in the program? 
-  * any error messages? Look in your manuals, and use Google!
-  * check the node health: Did you over-allocate memory until Linux killed the program?
-  * Try to isolate the problem - does it go away if you run a smaller job? does it go away if you use your home directory instead of the local disk on the node?
-  * Try to create a test case - the smallest and simplest possible case that reproduces the problem
-
-
-# Getting support - error reports
-* In order to help you, we need as much and as good information as possible:
-    * **What's the job-ID of the failing job?**
-    * **What working directory and what job-script?**
-    * What software are you using?
-    * What's happening - especially error messages?
-    * Did this work before, or has it never worked?
-    * Do you have a minimal example?
-    * No need to attach files; just point us to a directory on the system.
-    * Where are the files you've used - scripts, logs etc?
-    * Look at our Getting support page
-
-
-# In summary
-* Our web page is <https://www.c3se.chalmers.se>
-* Read up how to use the file system
-* Read up on the module system and available software
-* Learn a bit of Linux if you don't already know it - no need to be a guru, but you should feel comfortable working in it
-* Play around with the system, and ask us if you have questions
-* Please use the [SUPR support form](https://supr.naiss.se/support/?centre_resource=c6) - it provides additional automatic project and user information that we need. Please *always* prefer this to sending emails directly.
-
-
-# Outlook
-* We have more GPUs, but are still often not utilized that much.
-* We are expanding Vera with upcoming 44 Icelake nodes. Skylake nodes will retire by the end of this year
-  
