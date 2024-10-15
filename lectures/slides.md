@@ -324,6 +324,7 @@ def vector_add_kernel(A, B, C):
 * Some libraries:
   * <https://github.com/rapidsai/cudf> (RAPIDS)
   * <https://cupy.dev/>
+  * <https://pytorch.org> (you could use tensors for general linear algebra)
 
 ------------------------------------------------------------------
 
