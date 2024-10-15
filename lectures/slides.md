@@ -158,24 +158,28 @@ fontsize: 10pt
 #!/bin/bash
 #SBATCH -A C3SE2021-2-3
 #SBATCH -n 1
+#SBATCH -C MEM512  # my computation needs 1/64 * 512GB = 8GB of RAM per task
 #SBATCH -t 1:00:00
+#SBATCH --array=0-99
 #SBATCH --mail-user=zapp.brannigan@chalmers.se --mail-type=end
 
 module load SciPy-bundle
 
-process_data.py input_data_$SLURM_ARRAY_TASK_ID.npz results_$SLURM_ARRAY_TASK_ID.txt
+process_data.py input_data_${SLURM_ARRAY_TASK_ID}.npz results_${SLURM_ARRAY_TASK_ID}.txt
 ```
 
-* Need to produce a plot or table with all the combiend results? Split that into seperate postprocessing.
+* Need to produce a plot or table with all the combined results? Split that into seperate postprocessing.
 * Need millions of analysis? Do them in batches or look into High-Throughput-Computing software like `hyperqueue`
 
 ## Vector instructions
 
-* Modern CPUs have vector instruction sets, allowing them to do multiple 
+* All modern CPUs have some vector instruction sets allowing them to do multiple binary operations simultaenously on a single core.
+* SIMD - Single Instruction Multiple Data
 * AVX512 (2015) > AVX2 (2008) > AVX (2011) > SSE (1999-2006) > Generic instructions (<1996).
 * Has strict requirements on memory layout.
 * Most of the time one relies on optimized libraries doing the heavy lifting.
 * All of Vera's CPUs support AVX512.
+* You should make your code fast one a single core first!
 
 ## Shared memory
 
@@ -184,49 +188,144 @@ process_data.py input_data_$SLURM_ARRAY_TASK_ID.npz results_$SLURM_ARRAY_TASK_ID
   * You have to program in that no two threads should read and write to the same memory at the same time (race condition)
   * Typical example of parallelizing a for loop with OpenMP
 
-```c++
-todo
+```c
+#pragma omp parallel for
+for(int i = 0; i < ARRAY_SIZE; i++) {
+    results[i] = a[i] / b[i];
+}
 ```
 
 * Using optimized libraries can hide away this complexity and use multiple threads under the hood.
+* Software using OpenMP framework can typically be controlled via environment variables like `OMP_NUM_THREADS`
 
 ## Shared memory in python
-* Python can't do actual multithreading
+* Python itself can't do actual multithreading
   * `multiprocessing` actually starts multiple interpreters and passes messages between. They can't see the same memory.
-  * Python 3.13 allows for free threading, though still experimental and support is nonexistent.
-  * Libraries (`numpy` etc.) may have C/C++/Rust code that can use multiple threads
+  * Python 3.13 allows for free threading mode, though still highly experimental and support is nonexistent.
+  * Libraries (`numpy` etc.) may have C/C++/Rust code that can use multiple threads internally.
 
 ## Distributed memory
 
 * Multiple individual processes all not sharing memory access.
 * Messages must be explicitly passed between processes to synchronize information: Message Passing Interface (MPI) is the standard.
 * Optional within a single node. Required when scaling to multiple nodes.
+* Software can use both modes; MPI across nodes + OpenMP inside nodes is common.
 
 ```python
-todo
+from mpi4py import MPI
+import numpy as np
+
+comm = MPI.COMM_WORLD  # Get the global communicator
+rank = comm.Get_rank()  # Get the rank of the current process
+size = comm.Get_size()  # Get the total number of processes
+
+# Total size of the array
+N = 100
+
+# The root process initializes the data
+if rank == 0:
+    data = np.arange(N, dtype=np.float64)
+    print(f"Process {rank} initializing data: {data}")
+else:
+    data = None
+
+# Scatter the data: distribute chunks of the array to all processes
+chunk_size = N // size
+local_data = np.empty(chunk_size, dtype=np.float64)
+comm.Scatter(data, local_data, root=0)
+
+# Each process computes the sum of its local chunk
+local_sum = np.sum(local_data)
+print(f"Process {rank} computed local sum: {local_sum}")
+
+# Gather the local sums at the root process
+total_sum = comm.reduce(local_sum, op=MPI.SUM, root=0)
+
+# Root process prints the total sum
+if rank == 0:
+    print(f"Total sum: {total_sum}")
 ```
+
+## Noteworthy python frameworks
+
+* Everyone knows `numpy`, `scipy` and `pandas`, but consider:
+  * <https://www.ray.io>
+  * <https://www.dask.org>
+  * <https://github.com/modin-project/modin> - drop-in parallel `pandas` replacement
+  * <https://numba.pydata.org>
+
+
+# Running jobs in a cluster
+
+* Prepare your data and programs on the login node
+* Prepare a jobscript
+* Monitor your jobs
+* Profile your application
+
+## Jobscripts
+
+TODO
+
+## Monitor your jobs
+
+1. Check the queue: `squeue -u $USER`
+   * Is it running on what you wanted?
+   * If you don't see it, maybe it just finished really really quick, check the SLURM accounting database `sacct -u $USER`
+2. Check the output files for errors or warnings.
+3. Check the grafana page: `job_stats.py JOBID` which reveals if there are obvious bottlenecks. 
+
+## Profile your application
+
+* Compiled C, C++, Fortran etc. (make sure you include debug symbols)
+  * Intel VTune, AMD uProf, NVIDIA Nsight
+* Python
+  * Scalene (and many more)
+* Most of these tools are sampling your code at runtime: results are not exact and may have some overhead.
+* Common bottlenecks can be
+  * Disk I/O: How you read data is very important, especially on a network attached parallel filesystem!
+  * Memory access: Random memory access patterns can slow down the CPU 100x. Sequential memory reads are better.
+  * GPU syncs: Excessive syncing with GPUs can be much slower than the entire calculation
+
+
+# Accelerators (GPUs)
+
+* Originally made for graphics rendering.
+* Typically good at FP32 and below whereas scientific computing on CPUs has generally used FP64 (double precision).
+  * Newton iteration; accuracy isn't important for the tangent problem
+  * Iterative problems can start with FP16 then switch to FP32, FP64 for fine tuning
+
+
+![FP32](Float_example.svg)
+
+* GPUs are inherently parallel-only: A100 GPU has 6912 CUDA cores!
+* Requires careful planning and use to obtain good performance.
+  * Sync too often and you kill any performance gain.
+
+## Writing custom CUDA kernels
+
+* Possile to do in many langauges: C, C++, Julia, Python (via `numba`)
+* Difficulty can vary
+
+```python
+from numba import cuda
+
+@cuda.jit
+def vector_add_kernel(A, B, C):
+    i = cuda.grid(1)    
+    C[i] = A[i] + B[i]
+```
+
+## GPU arrays
+
+* Simple GPU array types is offered by many frameworks in most programming languages.
+* Are you used to vectorizing using numpy arrays? Almost the same thing!
+* Examples <https://docs.cupy.dev/en/stable/user_guide/basic.html>
+
+* Some libraries:
+  * <https://github.com/rapidsai/cudf> (RAPIDS)
+  * <https://cupy.dev/>
 
 ------------------------------------------------------------------
-
-# INTRO SLIDES BELOW TO BE PROCESSED
-
-# Desktop
-![Desktop through Thinlinc](../thinlinc.png)
-* Similar environment in Thinlinc and Ondemand.
-
-# Modules
-* Almost all software is available only after loading corresponding modules <https://www.c3se.chalmers.se/documentation/modules>
-* To load one or more modules, use the command `module load module-name [module-name ...]`
-* Loading a module expands your current `PATH`, `LD_LIBRARY_PATH`, `PYTHONPATH` etc. making the software available.
-* Example:
-
-```bash
-$ mathematica --version
--bash: mathematica: command not found
-$ module load Mathematica/13.0.0
-$ mathematica --version
-13.0
-```
 
 * Don't load modules in your `~/.bashrc`. You will break things like the desktop. Load modules in each jobscript to make them self contained, otherwise it's impossible for us to offer support.
 
@@ -286,18 +385,6 @@ $ mathematica --version
 * You can only install software in your allocated disk spaces (nice build tools allows you to specify a `--prefix=path_to_local_install`)
     * Many "installation instructions" online falsely suggest you should use `sudo` to perform steps. They are wrong.
 * Need a common dependency? You can request we install it as another module.
-
-
-# Software - Installing binary (pre-compiled) software
-* Common problem is that software requires a newer glibc version. This is tied to the OS and can't be upgraded.
-    * You can use Apptainer (Singularity) container to wrap this for your software.
-* Make sure to use binaries that are compiled optimised for the hardware.
-    * Alvis and Vera support up to AVX512.
-    * Difference can be *huge*. Example: Compared to our optimised NumPy builds, a generic x86 version is up to ~9x slower on Vera. 
-    * Support for hardware like the Infiniband network and GPUDirect can also be critical for performance.
-* AVX512 (2015) > AVX2 (2008) > AVX (2011) > SSE (1999-2006) > Generic instructions (<1996).
-* Difference between Skylake and upcoming Icelake relatively are small.
-* Software optimized for Skylake will also run on Icelake, but not the other way around as Icelake introduced a few new CPU instructions.
 
 
 # Building containers
