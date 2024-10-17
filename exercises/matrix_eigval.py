@@ -49,9 +49,6 @@ norm = get_vector_norm(b)
 b = divide_vector_by_scalar(b, norm)
 old_norm = 0
 start_time = time()
-mv_time = 0.
-vn_time = 0.
-dv_time = 0.
 for i in range(50):
     relative_difference = (abs(norm - old_norm) / (0.5 * (norm + old_norm)))
     print(f'Iteration {i}, eigenvalue approximation: {norm}, '
@@ -62,20 +59,12 @@ for i in range(50):
     old_norm = norm
 
 
-    temp_time = time()
     b = matrix_vector_multiplication(A, b)
-    mv_time += time() - temp_time
 
-    temp_time = time()
     norm = get_vector_norm(b)
-    vn_time += time() - temp_time
 
-    temp_time = time()
     b = divide_vector_by_scalar(b, norm)
-    dv_time += time() - temp_time
 
-print(
-    f'Matrix-Vector time: {mv_time:.2e}\nVector Norm time: {vn_time:.2e}\nDivide-vector time: {dv_time:.2e}')
 convergence_time = time() - start_time
 print(f'Time to convergence: {convergence_time:.2f} seconds.')
 
