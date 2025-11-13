@@ -31,7 +31,7 @@ fontsize: 10pt
   * Network card
   * GPU card
     * VRAM
-* Some of these components are somtimes incorporated
+* Some of these components are sometimes incorporated
 
 # What is a computer cluster
 
@@ -80,7 +80,7 @@ fontsize: 10pt
 * More VRAM ("video" RAM) up to 80GB
 * GPUs are customized hardware for various floating point types
 
-## GPU performance exmaple
+## GPU performance example
 | GPUs    | FP16 TFLOP/s | FP32 | FP64 | Capability |
 |---------|--------------|------|------|------------|
 | V100    |         31.3 | 15.7 |  7.8 |        7.0 |
@@ -88,7 +88,6 @@ fontsize: 10pt
 | A40     |         37.4 | 37.4 | 0.58 |        8.6 |
 | A100    |         77.9 | 19.5 |  9.7 |        8.0 |
 | **CPU node** |         |      |      |            |
-| Skylake |              | ~4   | ~2   | (32 cores) |
 | Icelake |              | ~8   | ~4   | (64 cores) |
 
 * Theoretical numbers!
@@ -260,6 +259,8 @@ if rank == 0:
 
 ## MPI is not the only option
 
+* ZeroMQ, msgpack, etc. can also send messages to different processes (possibly on different nodes)
+* GlobalArrays, OpenSHMEM, PETSc, can abstract away communication details and present a big array
 * Everyone knows `numpy`, `scipy` and `pandas`, but consider:
   * <https://www.ray.io>
   * <https://www.dask.org>
@@ -299,7 +300,7 @@ python3 compute_stuff.py
 
 ## Monitor your jobs
 
-1. Check the queue: `squeue -u $USER`
+1. Check the queue: `squeue --me`
    * Is it running on what you wanted?
    * If you don't see it, maybe it just finished really really quick, check the SLURM accounting database `sacct -u $USER`
 2. Check the output files for errors or warnings.
