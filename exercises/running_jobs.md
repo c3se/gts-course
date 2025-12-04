@@ -40,9 +40,9 @@ For a simple test job, we might write into the file `test_sbatch.sh`:
 #SBATCH -A PROJECT_NAME -p vera
 #SBATCH -n 1
 #SBATCH -t 00:00:10
-#SBATCH test_log.txt
+#SBATCH -o test_log.txt
 
-echo Job successful!
+echo Job successful.
 ```
 
 To submit this job, we run
@@ -51,11 +51,11 @@ To submit this job, we run
 $ sbatch test_sbatch.sh 
 ```
 
-To check the result, we look at the contents of `test_sbatch.txt`:
+To check the result, we look at the contents of `test_log.txt`:
 
 ```bash
-$ cat test_sbatch.txt
-Job successful!
+$ cat test_log.txt
+Job successful.
 ```
 
 ### Modules in batch jobs

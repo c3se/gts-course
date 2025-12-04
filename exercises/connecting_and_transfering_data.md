@@ -15,13 +15,16 @@ For Windows, you might need to enable [OpenSSH](https://learn.microsoft.com/en-u
 
 ### Open OnDemand Portal
 
-You can also connect to the cluster using the Open OnDemand Portal. For Alvis, the portal is located at [https://portal.c3se.chalmers.se](https://portal.c3se.chalmers.se); for Vera, it is at [https://vera.c3se.chalmers.se](https://vera.c3se.chalmers.se). As with SSH connection, you need to be at campus or use a VPN to connect. Simply follow the on-screen instructions to connect to the portal, and click "Interactive Apps" in the top bar. You can then launch a desktop session on a compute node, or an application such as a Jupyter Notebook.
+You can also connect to the cluster using the Open OnDemand portals. For Alvis, the portal is located at [https://alvis.c3se.chalmers.se](https://alvis.c3se.chalmers.se); for Vera, it is at [https://vera.c3se.chalmers.se](https://vera.c3se.chalmers.se). As with SSH connection, you need to be at campus or use a VPN to connect. Simply follow the on-screen instructions to connect to the portal, and click "Interactive Apps" in the top bar. You can then launch a desktop session on a compute node, or an application such as a Jupyter Notebook.
 
 ## Transferring files
 
 You can transfer files from your computer and vice versa using a variety of utilities. For Unix-like systems, the most common ones are `scp` and `rsync`. For Windows, `scp` is implemented natively since Windows 10. To use `scp` to transfer files from a Unix-like system to Vera, simply type
 
 ```bash
+# relative to home dir:
+scp -r /path/to/your/folder CID@vera1.c3se.chalmers.se:
+# or with full path:
 scp -r /path/to/your/folder CID@vera1.c3se.chalmers.se:/cephyr/users/CID/Vera/
 ```
 
