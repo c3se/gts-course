@@ -12,10 +12,14 @@ ssh CID@vera1.c3se.chalmers.se
 Replace `CID` with your Chalmers ID. When prompted, enter your password.
 
 For Windows, you might need to enable [OpenSSH](https://learn.microsoft.com/en-us/windows-server/administration/openssh/openssh_install_firstuse), but after that, you should be able to open a `PowerShell` or `cmd` instance and connect using the same command. On older Windows systems, you might need to install additional software, such as [PuTTy](https://www.chiark.greenend.org.uk/~sgtatham/putty/).
+Nowdays most Windows users might prefer using WSL2.
 
 ### Open OnDemand Portal
 
-You can also connect to the cluster using the Open OnDemand portals. For Alvis, the portal is located at [https://alvis.c3se.chalmers.se](https://alvis.c3se.chalmers.se); for Vera, it is at [https://vera.c3se.chalmers.se](https://vera.c3se.chalmers.se). As with SSH connection, you need to be at campus or use a VPN to connect. Simply follow the on-screen instructions to connect to the portal, and click "Interactive Apps" in the top bar. You can then launch a desktop session on a compute node, or an application such as a Jupyter Notebook.
+You can also connect to the cluster using the Open OnDemand portal at [https://vera.c3se.chalmers.se](https://vera.c3se.chalmers.se).
+As with SSH connection, you need to be at campus or use a VPN to connect.
+Simply follow the on-screen instructions to connect to the portal, and click "Interactive Apps" in the top bar.
+You can then launch a desktop session on a compute node, or an application such as a Jupyter Notebook.
 
 ## Transferring files
 
@@ -77,3 +81,14 @@ Host vera1
 ```
 
 Now you can simply type `ssh vera1` to connect to the cluster. If you want to, you can add a persistent connection to simplify automated or other frequent connections:
+
+```bash
+Host vera1
+    HostName vera1.c3se.chalmers.se
+    User your_cid
+    ControlMaster auto
+    ControlPersist yes
+    ControlPath ~/.ssh/ssh_mux_%L_%h_%r
+```
+
+which makes ssh reuse the same connection pipe (until you lose internet access for a minute or so). No repeated password prompts.

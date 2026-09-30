@@ -6,7 +6,7 @@ The core functionality of high-performance computing clusters is the ability to 
 
 When you first do `ssh vera1`, you end up on `vera1`, a _login node_. The login node is a point of access to the cluster from the outside world. However, it is extremely important that you do not run demanding computations on the login node, as many other users depend on it to access the cluster. In order to run jobs, you should use a _compute node_.
 
-The easiest way to access a compute node is to use [the web portal](https://vera.c3se.chalmers.se). Once logging in, use the top bar and go to `Interactive jobs -> Desktop`. Using the drop-down menu, launch a simple 1-core job for 30 minutes. Once the job launches, you should be able to view an interactive desktop in your browser.
+The easiest way to access a compute node is to use [the web portal](https://vera.c3se.chalmers.se). Once logging in, use the top bar and go to `Interactive jobs -> Desktop`. Using the drop-down menu, launch a simple 1:-core job for 30 minutes. Once the job launches, you should be able to view an interactive desktop in your browser.
 
 Open a terminal by clicking the black square in the lower middle tray on the desktop. How is the terminal different from when you logged into `vera1`? What is this compute node called?
 
@@ -20,16 +20,16 @@ Batch jobs are non-interactive jobs; they require you to write a script specifyi
 Second, batch jobs are independent of user-facing infrastructure, such as the portal and login nodes, and therefore they are less likely to be interrupted by any issues with these systems.
 Third, it is often the case that HPC problems require carrying out many separate, similar jobs with slightly different parameters. Batch jobs allow this type of dispatch procedure to be submitted and carrying out in a structured way.
 
-A basic batch script has the following contents:
+A basic batch script can look like this:
 
 ```bash
 #!/bin/bash
-#SBATCH -A PROJECT_NAME -p CLUSTER_NAME
-#SBATCH -n NUMBER_OF_CPU_NODES
+#SBATCH -A PROJECT_NAME
+#SBATCH -n NUMBER_OF_CPU_CORES
 #SBATCH -t MAXIMUM_RUN_TIME
-#SBATCH -o LOG_FILE
+#SBATCH -o OPTIONAL_RENAME_OUTPUT_FILE
 
-SCRIPT_GOES_HERE
+STEPS_TO_PERFORM_GOES_HERE
 ...
 ```
 
@@ -37,12 +37,11 @@ For a simple test job, we might write into the file `test_sbatch.sh`:
 
 ```bash
 #!/bin/bash
-#SBATCH -A PROJECT_NAME -p vera
+#SBATCH -A PROJECT_NAME
 #SBATCH -n 1
 #SBATCH -t 00:00:10
-#SBATCH -o test_log.txt
 
-echo Job successful.
+echo Job launched successful.
 ```
 
 To submit this job, we run
@@ -65,12 +64,11 @@ If we want to use the module system in an interactive job, we need to specify al
 
 ```bash
 #!/bin/bash
-#SBATCH -A PROJECT_NAME -p vera
+#SBATCH -A PROJECT_NAME
 #SBATCH -n 1
 #SBATCH -t 00:00:10
-#SBATCH -o test_log.txt
 
-module load Python/3.10.8
+module load Python/3.14.2-GCCcore-15.2.0
 
 python -c "print([i * i for i in range(10)])"
 ```
@@ -88,7 +86,7 @@ In order to submit many similar jobs, we can use job arrays. Job arrays allow us
 
 ```bash
 #!/bin/bash
-#SBATCH -A PROJECT_NAME -p vera
+#SBATCH -A PROJECT_NAME
 #SBATCH -n 1
 #SBATCH -t 00:00:10
 #SBATCH -o test_log_%a.txt
@@ -124,12 +122,12 @@ In order to use GPU resources, we need to do two things: First, make sure we loa
 
 ```bash
 #!/bin/bash
-#SBATCH -A PROJECT_NAME -p vera
+#SBATCH -A PROJECT_NAME
 #SBATCH -t 00:00:10
 #SBATCH --gpus-per-node=A40:1
 #SBATCH -o test_log_gpu.txt
 
-module load Python/3.10.8 CuPy/12.1.0-foss-2022b-CUDA-12.0.0
+module load CuPy/13.6.0-foss-2025b-CUDA-12.9.1
 
 python -c "import cupy as cp; array = cp.arange(1000); print(array.sum().get())"
 ```
@@ -146,11 +144,10 @@ If your job does not execute immediately, check which GPU types are avaiable (`I
 ```bash
 $ jobinfo
 ...
-Total GPU usage:
-TYPE    ALLOCATED IDLE OFFLINE TOTAL
-A100            2   10       0    12
-A40             4   12       0    16
-T4              4    0       0     4
-V100            0    8       0     8
+TYPE    ALLOCATED IDLE RESERVED OFFLINE TOTAL
+A40            33   95        0       0   128
+A100            8  132        4       4   148
+H100            1    7        0       0     8
+T4              0  160        0       0   160
 ...
 ```

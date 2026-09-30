@@ -6,42 +6,41 @@ For example, a basic library in Linux installations is GCC, the GNU compiler col
 
 ```bash
 $ module load GCC
-GCC             GCC/11.3.0      GCC/13.2.0      GCCcore/10.3.0  GCCcore/12.2.0  GCCcore/13.3.0
-GCC/10.3.0      GCC/12.2.0      GCC/13.3.0      GCCcore/11.2.0  GCCcore/12.3.0  
-GCC/11.2.0      GCC/12.3.0      GCCcore         GCCcore/11.3.0  GCCcore/13.2.0
+GCC/            GCC/13.3.0      GCC/15.2.0      GCCcore/13.2.0  GCCcore/14.3.0  
+GCC/12.3.0      GCC/14.2.0      GCCcore/        GCCcore/13.3.0  GCCcore/15.2.0  
+GCC/13.2.0      GCC/14.3.0      GCCcore/12.3.0  GCCcore/14.2.0  
 ```
 
 We don't need to load these modules explicitly, but `GCCcore`, a subset of `GCC`, defines the starting point of a _toolchain_. If we look at the available versions of `Python 3` by typing `Python/3` and hitting the tab key twice, we obtain
 
 ```bash
-Python/3.10.4-GCCcore-11.3.0       Python/3.11.3-GCCcore-12.3.0       Python/3.9.5-GCCcore-10.3.0-bare
-Python/3.10.4-GCCcore-11.3.0-bare  Python/3.11.5-GCCcore-13.2.0       Python/3.9.6-GCCcore-11.2.0
-Python/3.10.8-GCCcore-12.2.0       Python/3.12.3-GCCcore-13.3.0       Python/3.9.6-GCCcore-11.2.0-bare
-Python/3.10.8-GCCcore-12.2.0-bare  Python/3.9.5-GCCcore-10.3.0
+Python/3.11.3-GCCcore-12.3.0  Python/3.12.3-GCCcore-13.3.0  Python/3.13.5-GCCcore-14.3.0  
+Python/3.11.5-GCCcore-13.2.0  Python/3.13.1-GCCcore-14.2.0  Python/3.14.2-GCCcore-15.2.0  
 ```
 
-We therefore see that if we have an application that is limited to `Python 3.10`, we are automatically limited to the toolchains `GCCcore-11.3.0` and `GCCcore-12.2.0`. We must therefore make sure that any other packages that we want to use are either available from the module system, or can be loaded. For example, if we want to use `SciPy-bundle` which many commonly used scientific Python modules, we might start with just listing the versions available:
+We therefore see that if we have an application that is limited to `Python 3.12`, we are automatically limited to the toolchains `GCCcore-13.3.0` and `GCCcore-13.3.0`. We must therefore make sure that any other packages that we want to use are either available from the module system, or can be loaded. For example, if we want to use `SciPy-bundle` which many commonly used scientific Python modules, we might start with just listing the versions available:
 
 ```bash
 $ module load SciPy-bundle/202
-SciPy-bundle/2021.05-foss-2021a   SciPy-bundle/2022.05-foss-2022a   SciPy-bundle/2023.07-iimkl-2023a
-SciPy-bundle/2021.05-intel-2021a  SciPy-bundle/2022.05-intel-2022a  SciPy-bundle/2023.11-gfbf-2023b
-SciPy-bundle/2021.10-foss-2021b   SciPy-bundle/2023.02-gfbf-2022b   SciPy-bundle/2024.05-gfbf-2024a
-SciPy-bundle/2021.10-intel-2021b  SciPy-bundle/2023.07-gfbf-2023a
+SciPy-bundle/                     SciPy-bundle/2024.05-gfbf-2024a   SciPy-bundle/2026.05-gfbf-2026.1
+SciPy-bundle/2023.07-gfbf-2023a   SciPy-bundle/2025.06-gfbf-2025a   
+SciPy-bundle/2023.11-gfbf-2023b   SciPy-bundle/2025.07-gfbf-2025b   
 ```
 
 There are two parallel toolchains here - `intel` and `foss`/`gfbf`. `GCCcore` is part of the `foss`/`gfbf` family, so the version we are looking for is somewhere in here. An easy approach to find the right version is to first load the `Python` version we want, and then simply try to load versions until we get the right one. If we load an incorrect version, then `Lmod`, which is what makes the `module` system work, will throw an error:
 
 ```bash
-$ module load SciPy-bundle/2023.07-gfbf-2023a 
-Lmod has detected the following error:  Your site prevents the automatic swapping of modules
-with same name. You must explicitly unload the loaded version of "GCC/12.2.0" before you can load the new
-one. Use swap to do this:
+$ module load SciPy-bundle/2026.05-gfbf-2026.1
+Lmod has detected the following error:  Attempted to load GCCcore/15.2.0 but GCCcore/13.3.0 was
+already loaded.
 
-   $ module swap GCC/12.2.0 GCC/12.3.0
+For more info, see
+https://www.c3se.chalmers.se/documentation/module_system/modules/#finding-compatible-software
+
 ...
-$ module load SciPy-bundle/2023.02-gfbf-2022b
-$
+
+$ module load SciPy-bundle/2024.05-gfbf-2024a
+$ 
 ```
 
 We can confirm by checking our loaded modules:
@@ -50,25 +49,24 @@ We can confirm by checking our loaded modules:
 $ module list
 
 Currently Loaded Modules:
-  1) GCCcore/12.2.0                    18) FFTW/3.3.10-GCC-12.2.0
-  2) zlib/1.2.12-GCCcore-12.2.0        19) gompi/2022b
-  3) binutils/2.39-GCCcore-12.2.0      20) FFTW.MPI/3.3.10-gompi-2022b
-  4) GCC/12.2.0                        21) ScaLAPACK/2.2.0-gompi-2022b-fb
-  5) numactl/2.0.16-GCCcore-12.2.0     22) foss/2022b
-  6) XZ/5.2.7-GCCcore-12.2.0           23) bzip2/1.0.8-GCCcore-12.2.0
-  7) libxml2/2.10.3-GCCcore-12.2.0     24) ncurses/6.3-GCCcore-12.2.0
-  8) libpciaccess/0.17-GCCcore-12.2.0  25) libreadline/8.2-GCCcore-12.2.0
-  9) hwloc/2.8.0-GCCcore-12.2.0        26) Tcl/8.6.12-GCCcore-12.2.0
- 10) OpenSSL/1.1                       27) SQLite/3.39.4-GCCcore-12.2.0
- 11) libevent/2.1.12-GCCcore-12.2.0    28) GMP/6.2.1-GCCcore-12.2.0
- 12) UCX/1.13.1-GCCcore-12.2.0         29) libffi/3.4.4-GCCcore-12.2.0
- 13) PMIx/4.2.2-GCCcore-12.2.0         30) Python/3.10.8-GCCcore-12.2.0
- 14) UCC/1.1.0-GCCcore-12.2.0          31) gfbf/2022b
- 15) OpenMPI/4.1.4-GCC-12.2.0          32) pybind11/2.10.3-GCCcore-12.2.0
- 16) OpenBLAS/0.3.21-GCC-12.2.0        33) SciPy-bundle/2023.02-gfbf-2022b
- 17) FlexiBLAS/3.2.1-GCC-12.2.0
+  1) GCCcore/13.3.0                  15) FlexiBLAS/3.4.4-GCC-13.3.0
+  2) zlib/1.3.1-GCCcore-13.3.0       16) FFTW/3.3.10-GCC-13.3.0
+  3) binutils/2.42-GCCcore-13.3.0    17) gfbf/2024a
+  4) bzip2/1.0.8-GCCcore-13.3.0      18) cffi/1.16.0-GCCcore-13.3.0
+  5) ncurses/6.5-GCCcore-13.3.0      19) cryptography/42.0.8-GCCcore-13.3.0
+  6) libreadline/8.2-GCCcore-13.3.0  20) virtualenv/20.26.2-GCCcore-13.3.0
+  7) Tcl/8.6.14-GCCcore-13.3.0       21) Python-bundle-PyPI/2024.06-GCCcore-13.3.0
+  8) SQLite/3.45.3-GCCcore-13.3.0    22) gzip/1.13-GCCcore-13.3.0
+  9) XZ/5.4.5-GCCcore-13.3.0         23) lz4/1.9.4-GCCcore-13.3.0
+ 10) libffi/3.4.5-GCCcore-13.3.0     24) zstd/1.5.6-GCCcore-13.3.0
+ 11) OpenSSL/3                       25) ICU/75.1-GCCcore-13.3.0
+ 12) Python/3.12.3-GCCcore-13.3.0    26) Boost/1.85.0-GCC-13.3.0
+ 13) GCC/13.3.0                      27) pybind11/2.12.0-GCC-13.3.0
+ 14) AOCL-BLAS/5.0-GCC-13.3.0        28) SciPy-bundle/2024.05-gfbf-2024a
 ```
 
-Now we know in the future that `GCCcore-12.2.0` corresponds to `foss/gfbf/gompi-2022b`. In case it is not possible to find compatible versions for your module, a container is often a better choice.
+Now we know in the future that `GCCcore-13.3.0` corresponds to `foss/gfbf/gompi-2024a`.
+In case it is not possible to find compatible versions for your module, a container is often a better choice.
 
-Thus, the module system can be a bit tedious to use, as it requires some trial and error to find the correct versinos combinations, but when it works it is the most convenient way to use the cluster, since module are tested as they are built, and most of the time will "just work".
+The module system can be a bit tedious to use, but it typically comes down to finding which toolchain and pick what you need.
+Apart from Python, it also has a ton of other optimized software.
