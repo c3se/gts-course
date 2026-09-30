@@ -6,6 +6,7 @@ fontsize: 10pt
 
 
 # Aims of this lecture
+* Our resources
 * Introducing HPC
     * What is a computer cluster
     * Key hardware differences against personal computers
@@ -14,11 +15,44 @@ fontsize: 10pt
     * Vector instructions
     * Shared memory
     * Distributed memory
-* Submitting jobs to the queue
+* Submitting jobs to the queue 
     * Prepare
     * Monitor
     * Profile
 * Accelerators (GPUs)
+
+# Our resources
+
+* <https://www.c3se.chalmers.se>
+* Vera: HPC cluster
+  * Many powerful computers connected
+  * Run many and/or large simulations
+  * Queue
+* Cephyr: Storage
+  * Filesystem storage for Vera
+  * S3 object storage
+* Cirrus: OpenStack
+  * Running powerful virtaul machines
+* Disa: Kubernetes cluster
+
+## What makes us special
+
+* Powerful hardware:
+  * High core count machines
+  * Hundreds of TB of RAM per machine
+  * Hundreds of Nvidia GPUs
+  * Petabytes of raw storage
+  * Fast network
+
+## Not covered today
+
+* Contact e-commons for renting capacity on Disa and Cirrus, suitable for e.g:
+  * Websites with heavier compute
+  * Large databases
+  * Custom LLMs
+  * Automated CI/CD
+  * Things that don't fit batch queue
+* Cephyr S3 storage
 
 # Introducing HPC
 
@@ -30,7 +64,7 @@ fontsize: 10pt
   * Persistent storage (disks)
   * Network card
   * GPU card
-    * VRAM
+    * VRAM ("Video RAM")
 * Some of these components are sometimes incorporated
 
 # What is a computer cluster
@@ -51,7 +85,7 @@ fontsize: 10pt
 * Enterprise hardware has support contracts and is made to be running at load nonstop for years.
 
 ## CPU
-* Much more CPU cores (up to 128 are common today)
+* Much more CPU cores (64 cores and up)
 * Typically *slower* for single core work
 * Often dual socket: two CPU on a single motherboard
 * Larger vector instructions for floating point math (AVX512)
@@ -83,14 +117,16 @@ fontsize: 10pt
 ## GPU performance example
 | GPUs    | FP16 TFLOP/s | FP32 | FP64 | Capability |
 |---------|--------------|------|------|------------|
-| V100    |         31.3 | 15.7 |  7.8 |        7.0 |
 | T4      |         65.1 |  8.1 | 0.25 |        7.5 |
 | A40     |         37.4 | 37.4 | 0.58 |        8.6 |
 | A100    |         77.9 | 19.5 |  9.7 |        8.0 |
+| H100    |        248.0 | 62.0 | 30.0 |        9.0 |
 | **CPU node** |         |      |      |            |
+| Zen4    |              | ~12  | ~6   | (64 cores) |
 | Icelake |              | ~8   | ~4   | (64 cores) |
 
 * Theoretical numbers!
+* Other number formats: BF16, NVFP4, INT4, etc.
 
 # User differences
 
@@ -106,7 +142,7 @@ fontsize: 10pt
   * Software installations 
   * Interacting with a login node, submitting jobs to queue
     * Mostly batch computations
-    * Interactive jobs are possible, but there is still a queue
+    * Interactive jobs are possible, but there is still a risk for a queue
     * Light interactive post-processing can be done on login node
 
 # The compute cluster
@@ -154,9 +190,9 @@ fontsize: 10pt
 
 ```bash
 #!/bin/bash
-#SBATCH -A C3SE2021-2-3
+#SBATCH -A C3SE2026-2-3
 #SBATCH -n 1
-#SBATCH -C MEM512  # my computation needs 1/64 * 512GB = 8GB of RAM per task
+#SBATCH -C ZEN4  # zen4 has at least 768GB, 1/64 * 768GB = 12GB of RAM per task
 #SBATCH -t 1:00:00
 #SBATCH --array=0-99
 #SBATCH --mail-user=zapp.brannigan@chalmers.se --mail-type=end
@@ -168,6 +204,7 @@ process_data.py input_data_${SLURM_ARRAY_TASK_ID}.npz results_${SLURM_ARRAY_TASK
 
 * Need to produce a plot or table with all the combined results? Split that into seperate postprocessing.
 * Need millions of analysis? Do them in batches or look into High-Throughput-Computing software like `hyperqueue`
+* OS needs some RAM to function, you'd actually get a bit less than 12GB.
 
 ## Vector instructions
 
@@ -261,11 +298,13 @@ if rank == 0:
 
 * ZeroMQ, msgpack, etc. can also send messages to different processes (possibly on different nodes)
 * GlobalArrays, OpenSHMEM, PETSc, can abstract away communication details and present a big array
+  * Might use 
 * Everyone knows `numpy`, `scipy` and `pandas`, but consider:
+  * <https://github.com/modin-project/modin> - drop-in parallel `pandas` replacement
+  * <https://docs.pola.rs>
+  * <https://numba.pydata.org>
   * <https://www.ray.io>
   * <https://www.dask.org>
-  * <https://github.com/modin-project/modin> - drop-in parallel `pandas` replacement
-  * <https://numba.pydata.org>
 
 
 # Running jobs in a cluster
@@ -292,7 +331,7 @@ if rank == 0:
 #SBATCH -n 4
 
 # run your program
-module load SciPy-bundle/2024.05-gfbf-2024a
+module load SciPy-bundle/2025.07-gfbf-2025b
 
 export OMP_NUM_THREADS=$SLURM_NTASKS
 python3 compute_stuff.py
@@ -300,7 +339,7 @@ python3 compute_stuff.py
 
 ## Monitor your jobs
 
-1. Check the queue: `squeue --me`
+1. Check the queue: `squeue --me`, `jobinfo`
    * Is it running on what you wanted?
    * If you don't see it, maybe it just finished really really quick, check the SLURM accounting database `sacct -u $USER`
 2. Check the output files for errors or warnings.
