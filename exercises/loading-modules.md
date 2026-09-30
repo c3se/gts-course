@@ -1,8 +1,23 @@
 ## Modules
 
+See also documentation at <https://www.c3se.chalmers.se/documentation/module_system/>
+
 One of the basic features of almost every HPC system is the existence of _modules_. Modules are in essence self-contained software installations, usually with multiple versions of every software. Any given software will depend on various libraries and other pieces of software, which leads to the concept of _toolchains_.
 
-For example, a basic library in Linux installations is GCC, the GNU compiler collection, which contains compilers for languages like C and Fortran. A given version of a particular library might require a particular minimum version of GCC, for example `12.2.0`. It is generally best to use the same version of GCC to compile different libraries, and therefore, there will be a particular set of versions which depend on `GCC/12.2.0` We can find the versions of GCC available by typing `module load GCC` into the terminal, and hitting the Tab key twice:
+For example, a basic component is GCC, the GNU compiler collection, which contains compilers for languages like C, C++ and Fortran. A given version of a particular library will be compiled with a particular compiler version, for example GCC `14.2.0`.
+We typically update the software stack 1-2 times per year, currently on Vera:
+
+| Release | GCC    | OpenMPI | Intel    | CUDA   | Python | (and much more...) |
+| ------- | ------ | ------- | -------- | ------ | ------ | ------------------ |
+| 2023a   | 12.3.0 | 4.1.5   | 2023.1.0 | 12.1.1 | 3.11.3 | ...                |
+| 2023b   | 13.2.0 | 4.1.6   | 2023.2.1 | 12.4.0 | 3.11.5 | ...                |
+| 2024a   | 13.3.0 | 5.0.3   | 2024.2.0 | 12.6.0 | 3.12.3 | ...                |
+| 2025a   | 14.2.0 | 5.0.7   | 2025.1.1 | 12.8.0 | 3.13.1 | ...                |
+| 2025b   | 14.3.0 | 5.0.8   | 2025.2.0 | 12.9.1 | 3.13.5 | ...                |
+| 2026.1  | 15.2.0 | 5.0.10  | 2025.3.3 | 13.3.0 | 3.14.2 | ...                |
+
+It is generally best to use the same version of GCC to compile different libraries, and libraries aren't cross-compatible with different versions; one needs to stick to one.
+We can find the versions of GCC available by typing `module load GCC` into the terminal, and hitting the Tab key twice:
 
 ```bash
 $ module load GCC
@@ -66,7 +81,12 @@ Currently Loaded Modules:
 ```
 
 Now we know in the future that `GCCcore-13.3.0` corresponds to `foss/gfbf/gompi-2024a`.
-In case it is not possible to find compatible versions for your module, a container is often a better choice.
+The module system can be a bit tedious to use starting out, but it typically comes down to finding which toolchain and pick what you need once per project.
 
-The module system can be a bit tedious to use, but it typically comes down to finding which toolchain and pick what you need.
-Apart from Python, it also has a ton of other optimized software.
+Final notes:
+* You'll also find a many commercial applications like MATLAB, Star-CCM+, ANSA, etc. with many version in the module tree to pick from.
+* You can request software to be installed as modules, or just be updated for newer toolchains or versions: <https://supr.naiss.se/support>
+* We collaborate via EasyBuild <https://github.com/easybuilders/easybuild-easyconfigs/>. If the software is there, we can typically easily install it.
+* We will also have pre-built containers and datasets available via modules soon; Loading those modules records that they are being used and helps us to know what needs to be kept.
+* The software we build in the module system has been optimized for our system, but if your workload accounts for 0.1% of the total cluster core-hours, it doesn't matter. 
+
