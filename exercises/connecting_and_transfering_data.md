@@ -1,4 +1,7 @@
 ## Connecting
+
+For all methods of connecting, you need to be on Chalmers network. If away, use the Chalmers eduVPN. 
+
 ### SSH
 
 The standard way to connect to a computing cluster is to use the Secure Shell (SSH) protocol.
@@ -9,17 +12,25 @@ If you are using a computer with Linux or Mac OS X, and you are on Chalmers camp
 ssh CID@vera1.c3se.chalmers.se
 ```
 
-Replace `CID` with your Chalmers ID. When prompted, enter your password.
+Replace `CID` with your Chalmers ID. When prompted, enter your Chalmers password.
 
 For Windows, you might need to enable [OpenSSH](https://learn.microsoft.com/en-us/windows-server/administration/openssh/openssh_install_firstuse), but after that, you should be able to open a `PowerShell` or `cmd` instance and connect using the same command. On older Windows systems, you might need to install additional software, such as [PuTTy](https://www.chiark.greenend.org.uk/~sgtatham/putty/).
-Nowdays most Windows users might prefer using WSL2.
+Windows users might also prefer using WSL2.
+
+Several other tools exist to manage sessions as well if one prefers:
+* Windows: PuTTy, MobaXterm, Termius, Devolutions
+* Mac: (probably just use the terminal), Termius
+* Linux: (probably just use a good terminal), Remmina
 
 ### Open OnDemand Portal
 
 You can also connect to the cluster using the Open OnDemand portal at [https://vera.c3se.chalmers.se](https://vera.c3se.chalmers.se).
-As with SSH connection, you need to be at campus or use a VPN to connect.
 Simply follow the on-screen instructions to connect to the portal, and click "Interactive Apps" in the top bar.
 You can then launch a desktop session on a compute node, or an application such as a Jupyter Notebook.
+
+### Graphical login node
+
+Visit <https://vera1.c3se.chalmers.se> or <https://vera2.c3se.chalmers.se> and it log in to get a graphical desktop on the login node.
 
 ## Transferring files
 
@@ -48,6 +59,8 @@ scp -r CID@vera1.c3se.chalmers.se:/cephyr/users/CID/Vera/ /path/to/your/folder
 Note that on older Windows versions, you may need to install additional utilities, such as WinSCP.
 
 If you are on a Unix-like system, and you want to copy a large number of files in a more robust fashion, with the possibility to resume transfer and avoiding the copying of duplicates, [rsync](https://linux.die.net/man/1/rsync) may be a better option.
+
+You are also welcome to use graphical tools, e.g. CyberDuck, FileZilla, `rclone gui`
 
 ## SSH keys
 
