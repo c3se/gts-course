@@ -32,7 +32,7 @@ fontsize: 10pt
   * Filesystem storage for Vera
   * S3 object storage
 * Cirrus: OpenStack
-  * Running powerful virtaul machines
+  * Running powerful virtual machines
 * Disa: Kubernetes cluster
 
 ## What makes us special
@@ -104,6 +104,8 @@ fontsize: 10pt
 * Storage is more reliable; protection to small hardware failures via redundant hardware (RAID) and backups
 * Network storage is very sensitive to access pattern
 
+![dataset_speed](dataset_speed.png)
+
 ### Note:
 * Single harddrives are notoriously unreliable: you must always keep several backups of your data.
 * Note that RAID does not protect you from accidentally deleting/overwriting your own data.
@@ -173,11 +175,11 @@ fontsize: 10pt
 
 # Connecting
 * SSH: `ssh CID@vera1.c3se.chalmers.se` or `CID@vera2.c3se.chalmers.se`
-* Thinlinc: <https://vera1.c3se.chalmers.se:300> or <https://vera1.c3se.chalmers.se:300>
+* Remote Desktop: <https://vera1.c3se.chalmers.se> or <https://vera1.c3se.chalmers.se>
   * Also has a dedicated client for linux, mac, windows
 * OpenOndemand: <https://vera.c3se.chalmers.se>
-  * Conveniently launch interactive applications in the queue
-  * Also allows graphical desktop on either compute node (via queue) or login node like Thinlinc
+  * Conveniently launch interactive web applications in the queue (e.g. Jupyter)
+  * Also allows remote desktop on compute nodes (via queue) for heavy use
 
 
 # Parallel computations
@@ -326,7 +328,7 @@ if rank == 0:
 
 ```bash
 #!/usr/bin/env bash
-#SBATCH -A C3SE2024-1-2 -p vera
+#SBATCH -A C3SE2024-1-2
 #SBATCH -t 1:00:00
 #SBATCH -n 4
 
