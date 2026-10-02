@@ -98,7 +98,11 @@ python -c "print(${SLURM_ARRAY_TASK_ID}, ': ', [i * i for i in range(${SLURM_ARR
 ```
 
 ```bash
-$ cat test_log_%a.txt
+sbatch --array=1-10 job_script.sh
+```
+
+```bash
+$ cat test_log_{1..10}.txt
 10 :  [0, 1, 4, 9, 16, 25, 36, 49, 64, 81]
 0 :  []
 1 :  [0]
