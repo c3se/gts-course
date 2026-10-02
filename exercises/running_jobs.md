@@ -40,6 +40,7 @@ For a simple test job, we might write into the file `test_sbatch.sh`:
 #SBATCH -A PROJECT_NAME
 #SBATCH -n 1
 #SBATCH -t 00:00:10
+#SBATCH -o test_log.txt
 
 echo Job launched successful.
 ```
