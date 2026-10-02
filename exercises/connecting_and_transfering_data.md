@@ -73,9 +73,10 @@ ssh-keygen -t rsa
 You will be prompted to enter a password for the SSH key; you are strongly recommended to do this in order to keep your access secure. There are a few ways to copy your public key to the remote server, which depend a bit on your system. A way that should generally work is to scp the key to your home directory, log in, and append it to the file `.ssh/authorized_keys`. Appending it without overwriting the `authorized_keys` allows you to create additional keys for other computers you may wish to log in from.
 
 ```bash
-scp .ssh/id_rsa.pub CID@vera1.c3se.chalmers.se:/cephyr/users/CID/Vera/
-ssh CID@vera1.c3se.chalmers.se
-echo id_rsa.pub >> .ssh/authorized_keys  # Append public key to authorized_keys.
+scp .ssh/id_rsa.pub CID@vera1.c3se.chalmers.se:/cephyr/users/CID/Vera/  # Copy your ssh key to vera1
+ssh CID@vera1.c3se.chalmers.se  # Connect to vera1
+mkdir -p .ssh  # Make .ssh directory if it does not already exist
+cat id_rsa.pub >> .ssh/authorized_keys  # Append public key to authorized_keys
 chmod go-rwx .ssh/ .ssh/authorized_keys  # Ensure permissions of key and directory are correct.
 rm id_rsa.pub  # Remove public key file from Vera
 ```
